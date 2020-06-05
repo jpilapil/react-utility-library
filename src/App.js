@@ -21,25 +21,35 @@ export default class App extends React.Component {
       };
    }
 
-   toggleFavorites(e) {
-      // targets state object and changes isFavoritesChecked property value to opposite of its current value
-      this.setState({ isFavoritesChecked: !this.state.isFavoritesChecked });
+   filterFuncs(e) {
       // checks id of the radio button user clicked, viewModeFavorites or viewModeAll
-      const userInput = e.target.id;
-      console.log(userInput);
+      const favoritesRadioChecked = document.getElementById("viewModeFavorites")
+         .checked;
+      console.log(favoritesRadioChecked);
+      // gets whatever user types into search field
+      const searchInput = document.getElementById("searchInput").value;
       // makes copy of uiData
       const allFuncs = [...this.state.allFuncs];
-      if (userInput === "viewModeFavorites") {
+      if (favoritesRadioChecked) {
+         // targets state object and changes isFavoritesChecked property value to opposite of its current value
+         this.setState({ isFavoritesChecked: true });
          // filters through all function components and returns all that are favorited
-         const filteredFuncs = allFuncs.filter((func) => {
+         const favoriteFuncs = allFuncs.filter((func) => {
             return func.isFavorite === true;
          });
-         console.log(filteredFuncs);
-         // display all filtered funcitons
-         this.setState({ displayedFuncs: filteredFuncs });
+         console.log(favoriteFuncs);
+         const searchedFuncs = favoriteFuncs.filter((func) => {
+            return func.name.indexOf(searchInput) >= 0;
+         });
+
+         // display all searched funcitons
+         this.setState({ displayedFuncs: searchedFuncs });
       } else {
-         // display all functions
-         this.setState({ displayedFuncs: allFuncs });
+         this.setState({ isFavoritesChecked: false });
+         const searchedFuncs = allFuncs.filter((func) => {
+            return func.name.indexOf(searchInput) >= 0;
+         });
+         this.setState({ displayedFuncs: searchedFuncs });
       }
    }
 
@@ -70,9 +80,9 @@ export default class App extends React.Component {
                         className="custom-control-input"
                         // if favorites radio is not checked, then this input is checked
                         checked={!this.state.isFavoritesChecked}
-                        // in the event that show all radio button is clicked, run toggleFavorites function
+                        // in the event that show all radio button is clicked/changed, run filterFuncs function
                         onChange={(e) => {
-                           this.toggleFavorites(e);
+                           this.filterFuncs(e);
                         }}
                      />
                      <label
@@ -92,7 +102,7 @@ export default class App extends React.Component {
                         // if favorites radio is checked, == true
                         checked={this.state.isFavoritesChecked}
                         onChange={(e) => {
-                           this.toggleFavorites(e);
+                           this.filterFuncs(e);
                         }}
                      />
                      <label
@@ -112,6 +122,9 @@ export default class App extends React.Component {
                            aria-label="Search all functions"
                            aria-describedby="searchInput"
                            id="searchInput"
+                           onChange={(e) => {
+                              this.filterFuncs(e);
+                           }}
                         />
                      </div>
                      {/* sort dropdown menu */}

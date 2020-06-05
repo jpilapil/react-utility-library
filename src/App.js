@@ -1,6 +1,6 @@
 import React from "react";
 import "./style/master.scss"; // applies global scss
-import { uiData } from "./data/ui"; // import uiData from data/ui
+import { uiData } from "./data/ui"; // import array of objects from data/ui
 import FunctionUI from "./components/FunctionUI";
 
 export default class App extends React.Component {
@@ -111,8 +111,9 @@ export default class App extends React.Component {
                </div>
 
                {this.state.displayedFuncs.map((functionUI) => {
-                  const { name, desc, inputs } = functionUI;
+                  const { name, desc, inputs } = functionUI; // object is functionUI, we are pulling out name, desc, inputs properties
                   return (
+                     // return a component
                      <FunctionUI
                         key={name}
                         name={name}
@@ -121,7 +122,6 @@ export default class App extends React.Component {
                      />
                   );
                })}
-               <h1 className="text-primary">carne</h1>
             </div>
          </div>
       );

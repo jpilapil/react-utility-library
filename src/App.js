@@ -11,26 +11,35 @@ export default class App extends React.Component {
       // super() enables use of a top level this.
       super();
       console.log(uiData);
+      // state object that stores property values that belong to the component
+      // when state object changes, the component re-renders
       this.state = {
          isFavoritesChecked: false,
+         // all/displayedFuncs = array of objects (uiData)
          allFuncs: uiData,
          displayedFuncs: uiData,
       };
    }
 
    toggleFavorites(e) {
+      // targets state object and changes isFavoritesChecked property value to opposite of its current value
       this.setState({ isFavoritesChecked: !this.state.isFavoritesChecked });
-      const userInput = e.target.id; // checks id of the radio button user clicked, viewModeFavorites or viewModeAll
+      // checks id of the radio button user clicked, viewModeFavorites or viewModeAll
+      const userInput = e.target.id;
       console.log(userInput);
+      // makes copy of uiData
       const allFuncs = [...this.state.allFuncs];
       if (userInput === "viewModeFavorites") {
+         // filters through all function components and returns all that are favorited
          const filteredFuncs = allFuncs.filter((func) => {
             return func.isFavorite === true;
          });
          console.log(filteredFuncs);
-         this.setState({ displayedFuncs: filteredFuncs }); // display all filtered funcitons
+         // display all filtered funcitons
+         this.setState({ displayedFuncs: filteredFuncs });
       } else {
-         this.setState({ displayedFuncs: allFuncs }); // display all functions
+         // display all functions
+         this.setState({ displayedFuncs: allFuncs });
       }
    }
 
@@ -59,6 +68,7 @@ export default class App extends React.Component {
                         id="viewModeAll"
                         name="viewMode"
                         className="custom-control-input"
+                        // if favorites radio is not checked, then this input is checked
                         checked={!this.state.isFavoritesChecked}
                         // in the event that show all radio button is clicked, run toggleFavorites function
                         onChange={(e) => {
@@ -79,6 +89,7 @@ export default class App extends React.Component {
                         id="viewModeFavorites"
                         name="viewMode"
                         className="custom-control-input"
+                        // if favorites radio is checked, == true
                         checked={this.state.isFavoritesChecked}
                         onChange={(e) => {
                            this.toggleFavorites(e);

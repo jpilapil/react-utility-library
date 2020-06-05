@@ -8,6 +8,7 @@ export default class App extends React.Component {
    // happens before page is rendered
    // constructor method is a function that exists in the class we named App
    constructor() {
+      // super() enables use of a top level this.
       super();
       console.log(uiData);
       this.state = {
@@ -51,6 +52,7 @@ export default class App extends React.Component {
                   <p className="text-center lead mb-4">
                      {getFunctionsNum()} functions documented
                   </p>
+                  {/* show all radio input */}
                   <div className="custom-control custom-radio custom-control-inline">
                      <input
                         type="radio"
@@ -70,6 +72,7 @@ export default class App extends React.Component {
                         Show All
                      </label>
                   </div>
+                  {/* favorites radio input */}
                   <div className="custom-control custom-radio custom-control-inline">
                      <input
                         type="radio"
@@ -89,6 +92,7 @@ export default class App extends React.Component {
                      </label>
                   </div>
                   <div className="row mt-3">
+                     {/* search bar */}
                      <div className="col-6">
                         <input
                            type="text"
@@ -99,6 +103,7 @@ export default class App extends React.Component {
                            id="searchInput"
                         />
                      </div>
+                     {/* sort dropdown menu */}
                      <div className="col-6">
                         <select className=" form-control">
                            <option>Most recent</option>
@@ -111,10 +116,11 @@ export default class App extends React.Component {
                </div>
 
                {this.state.displayedFuncs.map((functionUI) => {
-                  const { name, desc, inputs } = functionUI; // object is functionUI, we are pulling out name, desc, inputs properties
+                  const { name, desc, inputs } = functionUI; // object is functionUI, we are pulling out keys (name, desc, inputs) -- destructuring
                   return (
                      // return a component
                      <FunctionUI
+                        // key is similar to id in which it needs to be unique. since all function names are unique, set key={name} (function name)
                         key={name}
                         name={name}
                         desc={desc}

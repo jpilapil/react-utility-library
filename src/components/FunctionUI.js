@@ -1,6 +1,6 @@
 import React from "react";
 
-// stateless UI, not rendered
+// stateless functional component, not rendered
 export default function FunctionUI(props) {
    // props = each individual function component from ui.js
    // create function to render inputs
@@ -8,12 +8,13 @@ export default function FunctionUI(props) {
    function renderInputs(num) {
       const inputs = [];
       for (let i = 0; i < num; i++) {
-         const id = `${props.name}, ${i}`;
-
+         // creates an id which contains the prop name and the current number input
+         const id = `${props.name}-${i}`;
          inputs.push(
             // push input elements into inputs array
             <input
                key={id}
+               // shows the function name + input number as an id
                id={id}
                type="text"
                className="form-control inline-action"

@@ -2,6 +2,7 @@ import React from "react";
 import "./style/master.scss"; // applies global scss
 import { uiData } from "./data/ui"; // import array of objects from data/ui
 import FunctionUI from "./components/FunctionUI";
+import orderBy from "lodash/orderBy";
 
 export default class App extends React.Component {
    // everything that the webpage needs
@@ -18,6 +19,7 @@ export default class App extends React.Component {
          // all/displayedFuncs = array of objects (uiData)
          allFuncs: uiData,
          displayedFuncs: uiData,
+         orderBy: "['name', 'asc']",
       };
    }
 
@@ -25,31 +27,33 @@ export default class App extends React.Component {
       // checks id of the radio button user clicked, viewModeFavorites or viewModeAll
       const favoritesRadioChecked = document.getElementById("viewModeFavorites")
          .checked;
-      console.log(favoritesRadioChecked);
-      // gets whatever user types into search field
-      const searchInput = document.getElementById("searchInput").value;
+      // gets whatever user types into search field, converts to lowercase
+      const searchInput = document
+         .getElementById("searchInput")
+         .value.toLowerCase();
       // makes copy of uiData
       const allFuncs = [...this.state.allFuncs];
       if (favoritesRadioChecked) {
-         // targets state object and changes isFavoritesChecked property value to opposite of its current value
-         this.setState({ isFavoritesChecked: true });
-         // filters through all function components and returns all that are favorited
+         this.setState({ isFavoritesChecked: true }); // if favorites is clicked, sets state of object to true
          const favoriteFuncs = allFuncs.filter((func) => {
+            // filters through all function components and returns all that are favorited
             return func.isFavorite === true;
          });
          console.log(favoriteFuncs);
          const searchedFuncs = favoriteFuncs.filter((func) => {
-            return func.name.indexOf(searchInput) >= 0;
+            return func.name.toLowerCase().indexOf(searchInput) >= 0;
          });
 
+         const orderedFuncs = orderBy(searchedFuncs, "name", "desc");
          // display all searched funcitons
-         this.setState({ displayedFuncs: searchedFuncs });
+         this.setState({ displayedFuncs: orderedFuncs });
       } else {
-         this.setState({ isFavoritesChecked: false });
+         this.setState({ isFavoritesChecked: false }); // if favorites is not clicked, sets state to false
          const searchedFuncs = allFuncs.filter((func) => {
-            return func.name.indexOf(searchInput) >= 0;
+            return func.name.toLowerCase().indexOf(searchInput) >= 0;
          });
-         this.setState({ displayedFuncs: searchedFuncs });
+         const orderedFuncs = orderBy(searchedFuncs, "name", "desc");
+         this.setState({ displayedFuncs: orderedFuncs });
       }
    }
 
@@ -129,11 +133,14 @@ export default class App extends React.Component {
                      </div>
                      {/* sort dropdown menu */}
                      <div className="col-6">
-                        <select className=" form-control">
+                        <select
+                           value={this.state.orderBy}
+                           className=" form-control"
+                        >
                            <option>Most recent</option>
                            <option>Oldest</option>
-                           <option>A - Z</option>
-                           <option>Z - A</option>
+                           <option value="['name', 'asc']">A - Z</option>
+                           <option value="['name', 'desc']">Z - A</option>
                         </select>
                      </div>
                   </div>

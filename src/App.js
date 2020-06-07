@@ -9,8 +9,7 @@ export default class App extends React.Component {
    // happens before page is rendered
    // constructor method is a function that exists in the class we named App
    constructor() {
-      // super() enables use of a top level this.
-      super();
+      super(); // super() enables use of a top level this.
       console.log(uiData);
       // state object that stores property values that belong to the component
       // when state object changes, the component re-renders
@@ -24,11 +23,10 @@ export default class App extends React.Component {
    }
 
    filterFuncs(e) {
-      // checks id of the radio button user clicked, viewModeFavorites or viewModeAll
+      // checks id of the radio button user clicked, true or false
       const favoritesRadioChecked = document.getElementById("viewModeFavorites")
          .checked;
-      // gets whatever user types into search field, converts to lowercase
-      const searchInput = document
+      const searchInput = document // gets whatever user types into search field, converts to lowercase
          .getElementById("searchInput")
          .value.toLowerCase();
       // makes copy of uiData
@@ -39,17 +37,18 @@ export default class App extends React.Component {
             // filters through all function components and returns all that are favorited
             return func.isFavorite === true;
          });
-         console.log(favoriteFuncs);
+         // console.log(favoriteFuncs);
          const searchedFuncs = favoriteFuncs.filter((func) => {
+            // filters through each component in favorites and checks if there are any matches with whatever user searched in searchInput
             return func.name.toLowerCase().indexOf(searchInput) >= 0;
          });
 
-         const orderedFuncs = orderBy(searchedFuncs, "name", "desc");
-         // display all searched funcitons
-         this.setState({ displayedFuncs: orderedFuncs });
+         const orderedFuncs = orderBy(searchedFuncs, "name", "desc"); // array of components that follow the qualifications of the search and radio button
+         this.setState({ displayedFuncs: orderedFuncs }); // display all searched funcitons
       } else {
          this.setState({ isFavoritesChecked: false }); // if favorites is not clicked, sets state to false
          const searchedFuncs = allFuncs.filter((func) => {
+            // checks all components in search all (allFuncs), filters through and matches whatever user input in searchInput
             return func.name.toLowerCase().indexOf(searchInput) >= 0;
          });
          const orderedFuncs = orderBy(searchedFuncs, "name", "desc");
@@ -127,6 +126,7 @@ export default class App extends React.Component {
                            aria-describedby="searchInput"
                            id="searchInput"
                            onChange={(e) => {
+                              // when there is a change in the input, calls an anonymous event and then calls filterFuncs
                               this.filterFuncs(e);
                            }}
                         />

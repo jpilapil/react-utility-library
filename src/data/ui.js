@@ -6,7 +6,7 @@ export const uiData = [
       inputs: 2,
       type: "basic",
       typeNum: 100,
-      isFavorite: true,
+      isFavorite: false,
       order: 100,
    },
    {

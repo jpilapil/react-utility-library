@@ -2,7 +2,7 @@ import React from "react";
 import "./style/master.scss"; // applies global scss
 import { uiData } from "./data/ui"; // import array of objects from data/ui
 import FunctionUI from "./components/FunctionUI";
-import orderBy from "lodash/orderBy";
+import orderBy from "lodash/orderBy"; // imports orderBy function from lodash
 
 export default class App extends React.Component {
    // everything that the webpage needs
@@ -13,12 +13,13 @@ export default class App extends React.Component {
       console.log(uiData);
       // state object that stores property values that belong to the component
       // when state object changes, the component re-renders
+
       this.state = {
+         // default state
          isFavoritesChecked: false,
-         // all/displayedFuncs = array of objects (uiData)
-         allFuncs: uiData,
-         displayedFuncs: uiData,
-         orderBy: "['name', 'asc']",
+         allFuncs: orderBy(uiData, "order", "desc"), // all/displayedFuncs = array of objects (uiData)
+         displayedFuncs: orderBy(uiData, "order", "desc"),
+         orderBy: '["order", "desc"]', // string of array
       };
    }
 
@@ -42,8 +43,8 @@ export default class App extends React.Component {
             // filters through each component in favorites and checks if there are any matches with whatever user searched in searchInput
             return func.name.toLowerCase().indexOf(searchInput) >= 0;
          });
-
-         const orderedFuncs = orderBy(searchedFuncs, "name", "desc"); // array of components that follow the qualifications of the search and radio button
+         const orderArr = JSON.parse(this.state.orderBy); // sets orderBy to an array of strings
+         const orderedFuncs = orderBy(searchedFuncs, ...orderArr); // array of components that follow the qualifications of the search and radio button
          this.setState({ displayedFuncs: orderedFuncs }); // display all searched funcitons
       } else {
          this.setState({ isFavoritesChecked: false }); // if favorites is not clicked, sets state to false
@@ -51,9 +52,17 @@ export default class App extends React.Component {
             // checks all components in search all (allFuncs), filters through and matches whatever user input in searchInput
             return func.name.toLowerCase().indexOf(searchInput) >= 0;
          });
-         const orderedFuncs = orderBy(searchedFuncs, "name", "desc");
+         const orderArr = JSON.parse(this.state.orderBy);
+         console.log(...orderArr);
+         const orderedFuncs = orderBy(searchedFuncs, ...orderArr);
          this.setState({ displayedFuncs: orderedFuncs });
       }
+   }
+
+   changeOrder(e) {
+      this.setState({ orderBy: e.target.value }, () => {
+         this.filterFuncs();
+      });
    }
 
    // render things in constructor
@@ -136,11 +145,18 @@ export default class App extends React.Component {
                         <select
                            value={this.state.orderBy}
                            className=" form-control"
+                           onChange={(e) => this.changeOrder(e)}
                         >
-                           <option>Most recent</option>
-                           <option>Oldest</option>
-                           <option value="['name', 'asc']">A - Z</option>
-                           <option value="['name', 'desc']">Z - A</option>
+                           {/*targets order key sorts in descending order*/}
+                           <option value='["order", "desc"]'>
+                              Most recent
+                           </option>
+                           {/*targets order key sorts in ascending order*/}
+                           <option value='["order", "asc"]'>Oldest</option>
+                           {/*targets name key sorts in ascending order*/}
+                           <option value='["name", "asc"]'>A - Z</option>
+                           {/*targets name key sorts in descending order*/}
+                           <option value='["name", "desc"]'>Z - A</option>
                         </select>
                      </div>
                   </div>

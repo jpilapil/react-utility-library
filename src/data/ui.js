@@ -201,7 +201,7 @@ export const uiData = [
    },
    {
       name: "shoppingList",
-      desc: "Creates shopping list",
+      desc: "Add to the shopping list",
       inputs: 2,
       type: "basic",
       typeNum: 100,
@@ -210,7 +210,7 @@ export const uiData = [
    },
    {
       name: "standInLine",
-      desc: "Enter your number to be put in que",
+      desc: "Enter your name to be put in que",
       inputs: 1,
       type: "basic",
       typeNum: 100,
@@ -297,7 +297,7 @@ export const uiData = [
    {
       name: "sliceMethod",
       desc:
-         '"Cat", "Dog", "Tiger", "Zebra", "Ant" 1st input: where to start slice 2nd input: where to end slice (non-inclusive)',
+         "Check code for array. 1st input: where to start slice 2nd input: where to end slice (non-inclusive)",
       inputs: 2,
       type: "functional",
       typeNum: 300,
@@ -307,7 +307,7 @@ export const uiData = [
    {
       name: "spliceMethod",
       desc:
-         '"Cat", "Dog", "Tiger", "Zebra", "Ant" 1st input: where to start splicing (removing) items 2nd input: how many items to splice',
+         "Check code for array. 1st input: where to start splicing (removing) items 2nd input: how many items to splice",
       inputs: 2,
       type: "functional",
       typeNum: 300,
@@ -401,8 +401,7 @@ export const uiData = [
    },
    {
       name: "someMethod",
-      desc:
-         "Input multiple numbers check to see if one of the input numbers is > 0",
+      desc: "Input a number to see if it is > 0",
       inputs: 1,
       type: "functional",
       typeNum: 300,
@@ -459,7 +458,7 @@ export const uiData = [
    {
       name: "confirmEnding",
       desc:
-         "Enter a string, see if he letter of the second input is the last letter of the string",
+         "Enter a string, see if the letter of the second input is the last letter of the string",
       inputs: 2,
       type: "algorithm",
       typeNum: 100,

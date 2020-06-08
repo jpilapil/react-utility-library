@@ -114,15 +114,17 @@ export default class utils {
    static unshift(input1, input2) {
       // adds a number into your array
       let myArray = input1;
-      return myArray.unshift(input2);
+      myArray.unshift(input2);
+      return myArray;
    }
 
    static addAlbum(album) {
       //A1: frank ocean album
       // unshift adds (album) to beginnning of array
       // returns [(album), nostalgia ultra, channel orange]
-      let frankOceanAlbums = ["Nostalgia Ultra", "Channel Orange"];
-      return frankOceanAlbums.unshift(album);
+      const frankOceanAlbums = ["Nostalgia Ultra", "Channel Orange"];
+      frankOceanAlbums.unshift(album);
+      return frankOceanAlbums;
    }
 
    static shoppingList(item, num) {
@@ -141,11 +143,13 @@ export default class utils {
    }
 
    static standInLine(name) {
+      // takes Wendla out of the line
+      // puts name user input in the back of the line
       let line = ["Wendla", "Melchior", "Moritz", "Haunshcen", "Ilsa", "Ernst"];
-      let backOfLine = line.push(name);
-      let firstInLine = line.shift();
+      line.push(name);
+      line.shift();
 
-      return firstInLine + " is next in line, " + backOfLine + "is at the end.";
+      return line;
    }
 
    // cardCount
@@ -322,8 +326,8 @@ export default class utils {
    // takes 2 arguments. where to start splice (in the index) and how many items to remove
 
    static spliceMethod(input1, input2) {
-      let animalArray = ["Cat", "Dog", "Tiger", "Zebra", "Ant"];
-      let splicedArray = animalArray.splice(input1, input2); // creates a variable that holds the spliced items. input1 = which index to start, input2 = how many items to remove
+      let animalArray1 = ["Cat", "Dog", "Tiger", "Zebra", "Ant"];
+      let splicedArray = animalArray1.splice(input1, input2); // creates a variable that holds the spliced items. input1 = which index to start, input2 = how many items to remove
       return splicedArray; // returns mutated array with items spliced
    }
 
@@ -398,7 +402,7 @@ export default class utils {
    // RETURN A SORTED ARRAY WITHOUT CHANGING THE ORIGINAL ARRAY -----
    static nonMutatingSort(num) {
       // user input needs to be a number
-      var globalArray = [5, 6, 3, 2, 9, num]; // adds input number to the given array
+      let globalArray = [5, 6, 3, 2, 9, num]; // adds input number to the given array
       return globalArray.slice().sort(); // takes the array, slices (creates a new array, did not mutate original global array), sorts new array
 
       // shorter version
@@ -444,7 +448,7 @@ export default class utils {
       let number = [input]; // creates variable that turns input into an array
       let result = number.every(function (num) {
          // takes number variable and checks to see if all numbers are > 0
-         return num > 0; // particular test
+         return num < 0; // particular test
       });
       return result; // returns true if > 0, false if < 0
    }
@@ -621,6 +625,17 @@ export default class utils {
    }
 
    // SLICE AND SPLICE
+
+   // static frankenSplice(arr1, arr2, n) {
+   //    // It's alive. It's alive!
+   //    let localArray = arr2.slice();
+   //    for (let i = 0; i < arr1.length; i++) {
+   //       localArray.splice(n, 0, arr1[i]);
+   //       n++;
+   //    }
+   //    return localArray;
+   // }
+
    static frankenSplice(arr1, arr2, n) {
       // Input 1: Array of numbers
       // Input 2: Array of Numbers to be put into Array 1

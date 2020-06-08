@@ -23,7 +23,7 @@ export default class FunctionUI extends React.Component {
 
    getUserInput() {
       const props = this.props;
-      console.log(props.name);
+      // console.log(props.name);
       const inputValues = [];
       for (let i = 0; i < props.inputs; i++) {
          // loop through the input of each prop

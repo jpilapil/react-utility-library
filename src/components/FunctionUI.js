@@ -12,9 +12,37 @@ export default class FunctionUI extends React.Component {
       };
    }
 
+   toggleCodeDisplay() {
+      // shows code if it is hidden, hides if it is shown
+      if (this.state.isCodeDisplayed === false) {
+         this.setState({ isCodeDisplayed: true });
+      } else {
+         this.setState({ isCodeDisplayed: false });
+      }
+   }
+
+   getUserInput() {
+      const props = this.props;
+      console.log(props.name);
+      const inputValues = [];
+      for (let i = 0; i < props.inputs; i++) {
+         // loop through the input of each prop
+         const element = document.getElementById(`input-${props.name}-${i}`); // get the id of each input property name
+         const value = element.value;
+         const convertedValue = convertDataType(value);
+         inputValues.push(convertedValue);
+      }
+      console.log(inputValues);
+      const result = utils[props.name](...inputValues);
+      console.log(result);
+      this.setState({
+         result: JSON.stringify(result),
+         isResultDisplayed: true,
+      });
+   }
+
    render() {
       const props = this.props;
-      console.log(utils.add(4, 5));
       // props = each individual function component from ui.js
       // create function to render inputs
       // loops through each number of inputs, push html input into empty input array
@@ -37,50 +65,32 @@ export default class FunctionUI extends React.Component {
          return inputs;
       }
 
-      function getUserInput() {
-         console.log(props.name);
-         const inputValues = [];
-         for (let i = 0; i < props.inputs; i++) {
-            // loop through the input of each prop
-            const element = document.getElementById(`input-${props.name}-${i}`); // get the id of each input property name
-            const value = element.value;
-            const convertedValue = convertDataType(value);
-            inputValues.push(convertedValue);
-         }
-         console.log(inputValues);
-         const result = utils[props.name](...inputValues);
-         console.log(result);
-      }
-
       return (
          <div className="col-12 col-lg-8 offset-lg-2 mb-5">
-            <p className="name">
+            <p className="name" onClick={() => this.toggleCodeDisplay()}>
                {/* &nbsp; adds white space */}
                <b>{props.name}</b>&nbsp;-&nbsp;{props.desc}
             </p>
-            <pre style={{ display: "none" }}>
-               <code></code>
-            </pre>
+            {this.state.isCodeDisplayed && (
+               <pre>
+                  <code>{String(utils[props.name])}</code>
+               </pre>
+            )}
             <div className="actions float-right">
                {/* input fields */}
                {/* render array of elements */}
                {renderInputs(props.inputs)}
                <button
                   className="btn btn-primary inline-action"
-                  onClick={() => getUserInput()}
+                  onClick={() => this.getUserInput()}
                >
                   Run
                </button>
             </div>
             <div className="clearfix mb-3"></div>
-            <div
-               className="alert alert-primary"
-               style={{ display: "none" }}
-            ></div>
-            <div
-               className="alert alert-danger"
-               style={{ display: "none" }}
-            ></div>
+            {this.state.isResultDisplayed && (
+               <div className="alert alert-primary">{this.state.result}</div>
+            )}
          </div>
       );
    }

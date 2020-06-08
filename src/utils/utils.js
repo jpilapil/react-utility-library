@@ -111,11 +111,10 @@ export default class utils {
       return newArray;
    }
 
-   static arrayWithShift() {
-      // removes the first item in array (Pink in this case) with .shift() and displays it when pressing Run
-      let myArray = ["Pink", "Red", "Purple"];
-      let removedFromArray = myArray.shift();
-      return removedFromArray;
+   static unshift(input1, input2) {
+      // adds a number into your array
+      let myArray = input1;
+      return myArray.unshift(input2);
    }
 
    static addAlbum(album) {

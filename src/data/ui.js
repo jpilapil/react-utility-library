@@ -183,8 +183,8 @@ export const uiData = [
    },
    {
       name: "unshift",
-      desc: "Shift value from array",
-      inputs: 1,
+      desc: "Add a number to the beginning of an array",
+      inputs: 2,
       type: "basic",
       typeNum: 100,
       isFavorite: false,

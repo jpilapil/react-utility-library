@@ -48,7 +48,8 @@ export default class FunctionUI extends React.Component {
             inputValues.push(convertedValue);
          }
          console.log(inputValues);
-         const result = utils[name](...inputValues);
+         const result = utils[props.name](...inputValues);
+         console.log(result);
       }
 
       return (

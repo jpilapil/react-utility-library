@@ -1,7 +1,9 @@
 import React from "react";
+import utils from "../utils/utils";
 
 // stateless functional component, not rendered
 export default function FunctionUI(props) {
+   console.log(utils.add(4, 5));
    // props = each individual function component from ui.js
    // create function to render inputs
    // loops through each number of inputs, push html input into empty input array

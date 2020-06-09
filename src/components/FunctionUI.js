@@ -5,6 +5,7 @@ import { convertDataType } from "../utils/helpers";
 export default class FunctionUI extends React.Component {
    constructor() {
       super();
+      // default state
       this.state = {
          isResultDisplayed: false,
          isCodeDisplayed: false,
@@ -68,8 +69,7 @@ export default class FunctionUI extends React.Component {
       return (
          <div className="col-12 col-lg-8 offset-lg-2 mb-5">
             <p className="name" onClick={() => this.toggleCodeDisplay()}>
-               {/* &nbsp; adds white space */}
-               <b>{props.name}</b>&nbsp;-&nbsp;{props.desc}
+               <b>{props.name}</b> - {props.desc}
             </p>
             {this.state.isCodeDisplayed && (
                <pre>

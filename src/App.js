@@ -19,7 +19,7 @@ export default class App extends React.Component {
          isFavoritesChecked: false,
          allFuncs: orderBy(uiData, "order", "desc"), // all/displayedFuncs = array of objects (uiData)
          displayedFuncs: orderBy(uiData, "order", "desc"),
-         orderBy: '["order", "desc"]', // string of array
+         orderBy: '["order", "desc"]', // string that is an array
       };
    }
 

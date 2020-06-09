@@ -27,7 +27,7 @@ export default class FunctionUI extends React.Component {
       const inputValues = [];
       for (let i = 0; i < props.inputs; i++) {
          // loop through the input of each prop
-         const element = document.getElementById(`input-${props.name}-${i}`); // get the id of each input property name
+         const element = document.getElementById(`input-${props.name}-${i}`); // get the id of each input property name "input-(name of function)-(input number)"
          const value = element.value;
          const convertedValue = convertDataType(value);
          inputValues.push(convertedValue);
@@ -82,7 +82,7 @@ export default class FunctionUI extends React.Component {
                {renderInputs(props.inputs)}
                <button
                   className="btn btn-primary inline-action"
-                  onClick={() => this.getUserInput()}
+                  onClick={() => this.getUserInput()} // runs getUserInput function when button is clicked
                >
                   Run
                </button>

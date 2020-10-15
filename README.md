@@ -5,6 +5,7 @@ This function library was created to help me remember basic JavaScript functions
 ### Technologies used:
 
 -  React.js
+-  Bootsrap
 
 ### Check out the library here!
 

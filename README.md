@@ -6,6 +6,6 @@ This function library was created to help me remember basic JavaScript functions
 
 -  React.js
 
-### Check the full stack application here!
+### Check out the library here!
 
 [Function Library](http://foamy-dirt.surge.sh/)
